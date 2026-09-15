@@ -4,35 +4,81 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-import bookstore.bookstorelola.domain.BookRepository;
 import bookstore.bookstorelola.model.Book;
+import bookstore.bookstorelola.domain.BookRepository;
+import bookstore.bookstorelola.domain.BookType;
+import bookstore.bookstorelola.domain.BookTypeRepository;
 
 
-@Controller 
+@Controller
 public class BookController {
 
-    // FIELD NIMELTAAN bookRepository
+    // Field nimeltään bookRepository
     private BookRepository bookRepository;
-    // CONSTRUCTOR INJECTION
+
+    // Constructor injection
     public BookController(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
 
-    @RequestMapping("/index")
-    public String showIndex() {
-        // VOIDAAN TEHDA TESTI ETTA LOYTYYKO TIETOKANNASTA MITAAN
-        // JA TULOSTETAAN CONSOLILLE VSCODEEN SISALTO
+    /*private BookTypeRepository bookTypeRepository;
+
+    public BookController(BookTypeRepository bookTypeRepository){
+        this.bookTypeRepository = bookTypeRepository;
+    }*/
+
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    public String index() {
         List<Book> bookList = (ArrayList<Book>) bookRepository.findAll();
+        System.out.println(bookList.toString());
         return "index";
     }
-    
-        @RequestMapping("/modify", method=RequestMethod.GET)
-    public String modifyBook(@RequestParam String param) {
-        return "modifybook";
+
+    @RequestMapping(value = "/booklist", method = RequestMethod.GET)
+    public String showBooks(Model model) {
+        model.addAttribute("books", bookRepository.findAll());
+        System.out.println("JUKAN DEBUGGAUS");
+        List<Book> books = (List<Book>) bookRepository.findAll();
+        for (int i = 0; i < books.size(); i++) {
+            BookType bookType = books.get(i).getBookType();
+            System.out.println(bookType == null ? null : bookType.getMyBookType());
+        }
+        return "booklist";
     }
-    
+
+    @RequestMapping(value = "/showmodifyform", method = RequestMethod.POST)
+    public String addBook(Model model) {
+        model.addAttribute("book", new Book());
+        return "addbook";
+    }
+
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public String saveBook(Book book) {
+        bookRepository.save(book);
+        return "redirect:booklist";
+    }
+
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public String deleteBook(@PathVariable("id") Long bookId, Model model) {
+        bookRepository.deleteById(bookId);
+        return "redirect:../booklist";
+    }
+
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+    public String editBook(@PathVariable ("id") Long bookId, Model model) {
+        model.addAttribute("book", bookRepository.findById(bookId));
+        return "editBook";
+    }
+
+
+
+
 }
+
+
+

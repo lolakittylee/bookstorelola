@@ -1,36 +1,51 @@
 package bookstore.bookstorelola.model;
 
-import org.springframework.stereotype.Indexed;
-
+import bookstore.bookstorelola.domain.BookType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Book {
-   @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String title;
     private String author;
-    private String publicationYear;
+    private int publicationYear;
     private String isbn;
-    private String price;
+    private double price;
 
-    public Book() {
+    @ManyToOne 
+    @JoinColumn(name = "departmentid")
+    private BookType bookType;
 
-    }
 
-    public Book(String title, String author, String publicationYear, String isbn, String price) {
+    public Book() {}
+    
+    public Book(String title, String author, int publicationYear, String isbn, double price, BookType bookType) {
         this.title = title;
         this.author = author;
         this.publicationYear = publicationYear;
         this.isbn = isbn;
         this.price = price;
-
+        this.bookType = bookType;
     }
+
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -47,11 +62,11 @@ public class Book {
         this.author = author;
     }
 
-    public String getPublicationYear() {
+    public int getPublicationYear() {
         return publicationYear;
     }
 
-    public void setPublicationYear(String publicationYear) {
+    public void setPublicationYear(int publicationYear) {
         this.publicationYear = publicationYear;
     }
 
@@ -63,10 +78,26 @@ public class Book {
         this.isbn = isbn;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         this.price = price;
     }
+    
+    public BookType getBookType() {
+        return bookType;
+    }
+
+    public void setBookType(BookType bookType) {
+        this.bookType = bookType;
+    }
+
+     @Override
+    public String toString() {
+        return "Book [id=" + id + ", title=" + title + ", author=" + author + ", publicationYear=" + publicationYear
+                + ", isbn=" + isbn + ", price=" + price + "]";
+    }
+
+}
