@@ -1,6 +1,8 @@
 package bookstore.bookstorelola.model;
 
 import bookstore.bookstorelola.domain.BookType;
+import bookstore.bookstorelola.domain.Category;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,13 +22,17 @@ public class Book {
     private String isbn;
     private double price;
 
-    @ManyToOne 
-    @JoinColumn(name = "departmentid")
+    @ManyToOne
+    @JoinColumn(name = "booktype_id")
     private BookType bookType;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 
-    public Book() {}
-    
+    public Book() {
+    }
+
     public Book(String title, String author, int publicationYear, String isbn, double price, BookType bookType) {
         this.title = title;
         this.author = author;
@@ -36,7 +42,16 @@ public class Book {
         this.bookType = bookType;
     }
 
-
+    public Book(String title, String author, int publicationYear, String isbn, double price, BookType bookType,
+            Category category) {
+        this.title = title;
+        this.author = author;
+        this.publicationYear = publicationYear;
+        this.isbn = isbn;
+        this.price = price;
+        this.bookType = bookType;
+        this.category = category;
+    }
 
     public Long getId() {
         return id;
@@ -85,7 +100,7 @@ public class Book {
     public void setPrice(double price) {
         this.price = price;
     }
-    
+
     public BookType getBookType() {
         return bookType;
     }
@@ -94,7 +109,15 @@ public class Book {
         this.bookType = bookType;
     }
 
-     @Override
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    @Override
     public String toString() {
         return "Book [id=" + id + ", title=" + title + ", author=" + author + ", publicationYear=" + publicationYear
                 + ", isbn=" + isbn + ", price=" + price + "]";

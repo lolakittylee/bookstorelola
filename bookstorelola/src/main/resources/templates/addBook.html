@@ -37,9 +37,37 @@
 						<input type="text" th:field="*{price}" />
 					</td>
 				</tr>
+
+				<tr>
+					<td>
+						<label>Book Type:</label>
+						<select th:field="*{bookType}">
+							<option th:each="type : ${booktypes}" 
+							th:value="${type.id}" 
+							th:text="${type.name}">
+							</option>
+						</select>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						<label>Category:</label>
+						<select th:field="*{category}">
+							<option th:each="category : ${categories}" 
+							th:value="${category.id}" 
+							th:text="${category.name}">
+							</option>
+						</select>
+					</td>
+				</tr>
+
 			</table>
 			<input type="submit" value="Save"></input>
 		</form>
+
+		<a th:href="@{/booklist}">Back to Book List</a>
+		
 	</div>
 
 
