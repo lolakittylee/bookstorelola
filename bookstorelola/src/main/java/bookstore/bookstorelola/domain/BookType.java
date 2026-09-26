@@ -2,6 +2,8 @@ package bookstore.bookstorelola.domain;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import bookstore.bookstorelola.model.Book;
 
 import jakarta.persistence.CascadeType;
@@ -17,15 +19,13 @@ public class BookType {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long booktypeid;
-    
+    private String myBookType;
+
+    @JsonIgnoreProperties ("bookType")
     @OneToMany (cascade = CascadeType.ALL, mappedBy = "bookType")
     private List<Book> books;
 
-
-
-    private String myBookType;
-
-
+    public BookType() {}
 
     public Long getId() {
         return booktypeid;

@@ -3,6 +3,7 @@ package bookstore.bookstorelola.web;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,8 +21,13 @@ import bookstore.bookstorelola.domain.CategoryRepository;
 public class BookController {
 
     // Field nimeltään bookRepository
+    @Autowired 
     private BookRepository bookRepository;
+
+    @Autowired 
     private BookTypeRepository bookTypeRepository;
+
+    @Autowired 
     private CategoryRepository categoryRepository;
 
     // Constructor injection

@@ -1,5 +1,7 @@
 package bookstore.bookstorelola.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import bookstore.bookstorelola.domain.BookType;
 import bookstore.bookstorelola.domain.Category;
 
@@ -9,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Book {
@@ -25,6 +28,10 @@ public class Book {
     @ManyToOne
     @JoinColumn(name = "booktype_id")
     private BookType bookType;
+
+    @JsonIgnore 
+    @OneToMany (mappedBy = "book")
+    private Iterable <Book> booklist;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
