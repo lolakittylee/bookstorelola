@@ -1,5 +1,7 @@
 package bookstore.bookstorelola.model;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import bookstore.bookstorelola.domain.BookType;
@@ -30,8 +32,8 @@ public class Book {
     private BookType bookType;
 
     @JsonIgnore 
-    @OneToMany (mappedBy = "book")
-    private Iterable <Book> booklist;
+    @OneToMany (mappedBy = "title")
+    private List <Book> booklist;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
