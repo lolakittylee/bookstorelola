@@ -5,8 +5,26 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-
+<div>
    <h1>Welcome to my Bookstore!</h1>
-
+</div>
+         <div class="col-md-6">
+                <div class="alert alert-danger" th:if="${param.error}">
+                    Invalid username and password. 
+                
+            </div>
+            <div class="alert alert-warning" th:if="${param.logout}">
+                You have been logged out.
+            </div>
+            <div >
+                <form th:action="@{/index}" method="post" class="d-flex flex-column gap-3"> 
+                    <div><label> User Name : <input type="text" name="username" class="form-control"/> </label></div>
+                    <div><label> Password: <input type="password" name="password" class="form-control"/> </label></div>
+                    <div><input type="submit" value="Sign In" class="btn btn-primary"/></div>
+                    <div><a  class="btn btn-link" th:href="@{/login}" >Sign up currently disabled</a></div>
+                </form>
+            </div>
+        </div>
+       </div>
 </body>
 </html>

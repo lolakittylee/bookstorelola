@@ -50,13 +50,13 @@ public class DataBaseInitializer {
 			BookType ebook = booktypeRepository.save(new BookType("E-book"));
 
 			bookRepository.save(new Book(
-					"A Court of Thorns and Roses",
-					 "Sarah J. Maas",
-					  2015,
-					   "1234-56-7",
-					    20.00,
-						 paperback,
-						  fantasy));
+				"A Court of Thorns and Roses",
+				"Sarah J. Maas",
+				2015,
+				"1234-56-7",
+				20.00,
+				paperback,
+				fantasy));
 
 			bookRepository.save(new Book(
 				"A Court of Mist and Fury",

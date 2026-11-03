@@ -18,8 +18,6 @@ import bookstore.bookstorelola.domain.BookRepository;
 public class BookstoreApplication {
 
 	private final BookTypeRepository bookTypeRepository;
-    //Luodaan logger
-	private static final Logger logger = LoggerFactory.getLogger(BookstoreApplication.class);
 
     BookstoreApplication(BookTypeRepository bookTypeRepository) {
         this.bookTypeRepository = bookTypeRepository;

@@ -7,8 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 
-@Entity(name= "users")
-@Table(name="users")
+@Entity(name= "allusers")
+@Table(name="manyusers")
 public class AppUser {
 
     @Id
